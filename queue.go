@@ -15,7 +15,7 @@ type Queue interface {
 
 type Frame struct {
 	Priority int
-	data     interface{}
+	Data     interface{}
 
 }
 
