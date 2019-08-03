@@ -85,10 +85,7 @@ func (p *PriorityQueue) Size() int {
 }
 
 func (p *PriorityQueue) less(a, b int) bool {
-	if p.lesss != nil {
 		return p.lesss(p.nodes, a, b)
-	}
-	panic("less cannot be nil")
 }
 
 
