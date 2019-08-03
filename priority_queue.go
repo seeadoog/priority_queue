@@ -6,10 +6,9 @@ import (
 )
 
 type Queue interface {
-	Add(frame interface{})
+	Add(data interface{})
 	Remove() interface{}
 	Top() interface{}
-	Less(func(data []interface{}, i, j int) bool)
 	Size() int
 }
 
@@ -53,12 +52,12 @@ func (p *PriorityQueue) sink(k int) {
 	}
 }
 
-func (p *PriorityQueue) Add(f interface{}) {
+func (p *PriorityQueue) Add(data interface{}) {
 	if len(p.nodes) <= p.N {
 		apd := make([]interface{}, p.N-len(p.nodes)+p.ExpandSize)
 		p.nodes = append(p.nodes, apd...)
 	}
-	p.nodes[p.N] = f
+	p.nodes[p.N] = data
 	p.swim(p.N)
 	p.N++
 }
@@ -92,9 +91,7 @@ func (p *PriorityQueue) less(a, b int) bool {
 	panic("less cannot be nil")
 }
 
-func (p *PriorityQueue) Less(f func(data []interface{}, i, j int) bool) {
-	p.lesss = f
-}
+
 
 func (p *PriorityQueue) show() {
 
@@ -148,9 +145,6 @@ func (c *BlockingPriorityQueue) Top() interface{} {
 	 return d
 }
 
-func (c *BlockingPriorityQueue) Less(f func(data []interface{}, i, j int) bool) {
-	c.pq.Less(f)
-}
 
 func (c *BlockingPriorityQueue) Size() int {
 	return c.pq.Size()
